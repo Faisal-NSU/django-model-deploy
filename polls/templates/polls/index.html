@@ -1,1 +1,65 @@
-<p>Home Sweet Home.</p>
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Some Stuff{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    {% block link %}
+    {% endblock %}
+</head>
+<body>
+    {% csrf_token %}
+    <input id="image-selector" type="file">    
+    <button id="predict-button">Predict</button>
+    <p style="font-weight:bold">Predictions</p>    
+    <p><span id="table-maker"></span></p>
+    
+    <img id="selected-image" src=""/>
+       
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        let csr = $("input[name=csrfmiddlewaretoken").val();
+        let base64Image;
+        $("#image-selector").change(function() {
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                let dataURL = reader.result;
+                $('#selected-image').attr("src", dataURL).height(250).width(300);
+               
+                base64Image = dataURL.replace("data:image/png;base64,","");
+                //console.log(base64Image);
+
+            }
+            reader.readAsDataURL($("#image-selector")[0].files[0]);
+            $("#dog-prediction").text("");
+            $("#cat-prediction").text("");
+        });
+        
+        $("#predict-button").click(function(){
+            let message = {
+                image: base64Image
+            }
+            //console.log(message);
+
+            $.ajax({
+                cache : false,
+                url: "predict",
+                method: "POST",
+                headers: {'X-CSRFToken': csr},
+                data: message,
+                success: function(list){
+                    console.log(list);
+                    
+                },
+            }); 
+
+
+           
+        });       
+    </script>
+
+
+
+</body>
+</html>
