@@ -64,8 +64,8 @@ $("#predict-button").click(function(){
             // appends <table> into <body>
           
             $("#table-maker").append(tbl);
-            // sets the border attribute of tbl to 2;
-            tbl.setAttribute("border", "2");
+            
+            
         },
     }); 
 
