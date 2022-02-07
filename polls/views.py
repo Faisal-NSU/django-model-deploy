@@ -45,14 +45,15 @@ def predict(request):
         df = pd.read_csv(csv)
         
         listtt = [(str(df.iloc[idx.item()][0]), str(percentage[idx.item()].item())) for idx in indices[0][:5]]
-        cat, perc = [],[]
+        cat, perc = [] , []
         for i,j in listtt:
             cat.append(i)
             perc.append(j)
+
         dataDic ={'cat':cat,
                   'perc':perc}
-        
-        return JsonResponse({'list': json.dumps(dataDic)})
+
+        return JsonResponse(dataDic, safe=False)
         
 
 def index(request):  
