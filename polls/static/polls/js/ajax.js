@@ -11,8 +11,10 @@ $("#image-selector").change(function() {
 
     }
     reader.readAsDataURL($("#image-selector")[0].files[0]);
-    $("#dog-prediction").text("");
-    $("#cat-prediction").text("");
+    var temp = $("#image-selector")[0].files[0];
+ 
+    $("#noFile").text(temp.name);
+
 });
 
 $("#predict-button").click(function(){

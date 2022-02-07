@@ -5,21 +5,41 @@
     <meta charset="UTF-8">
     <title>{% block title %}Some Stuff{% endblock %}</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+      
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>   
+    <link rel="stylesheet" href="{% static 'polls/css/myCss.css' %}">
     
     
 </head>
 <body>
 
     {% csrf_token %}
-    <input id="image-selector" type="file">    
-    <button id="predict-button">Predict</button>
-    <p style="font-weight:bold">Predictions</p>    
-    <p id="table-maker"> </p>
-    <img id="selected-image" src=""/>
+
+    
+    <h1 style="font-weight:bold">Model Deployment</h1>    <p >Upload Image: </p>
+    <div class="file-upload">
+    <div class="file-select">
+        <div class="file-select-button" id="fileName">Choose File</div>
+        <div class="file-select-name" id="noFile">No file chosen...</div> 
+        
+        <input type="file" name="chooseFile" id="image-selector">
+    </div>
+    <button class="btn btn-info" id="predict-button">Predict</button>
+    </div>
+
+    <div id="header" style="height:15%;width:100%;">
+        <div style='float:left'>
+            <img id="selected-image" src="" style="margin-left:15%;margin-top:5%"/>
+        </div>
+        <div style='float:left' id="table-maker" style="margin-left:30%;float:top;">
+        
+        </div>
+    </div>
+    
 
 
-    <script src="{% static 'polls/js/ajax.js' %}" type="text/javascript"></script>
+    <script type="text/javascript" src="{% static 'polls/js/ajax.js' %}"></script>  
+    
 </body>
 
 </html>
